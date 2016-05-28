@@ -1,2 +1,5 @@
 # Ignore temp files
 *~
+
+# Ignore the particle login file
+server/particle-login.json
