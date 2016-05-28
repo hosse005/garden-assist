@@ -17,6 +17,7 @@
     "url": "https://github.com/hosse005/garden-assist/issues"
   },
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "particle-api-js": "^5.2.7"
   }
 }
