@@ -46,19 +46,13 @@ module.exports = {
 			var timestamp = data.published_at;
 			console.log('Moisture event: ' + moisture + ' @ ' + timestamp);
 			writeFile(moistureFile, data);
-			/*
-			fs.appendFile(moistureFile,
-				      JSON.stringify(data) + '\n',
-				      (err) => { if (err) console.log(err); });*/
 		    });
 
 		    stream.on('charge', function(data) {
 			var charge = data.data;
 			var timestamp = data.published_at;
 			console.log('Charge event: ' + data.data + ' @ ' + data.published_at);
-			fs.appendFile(chargeFile,
-				      JSON.stringify(data) + '\n',
-				      (err) => { if (err) console.log(err); });
+			writeFile(chargeFile, data);
 		    });
 		},
 		function(err) {
