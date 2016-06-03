@@ -3,3 +3,7 @@
 
 # Ignore the particle login file
 server/particle-login.json
+
+# Ignore data files
+client/moisture.json
+client/charge.json

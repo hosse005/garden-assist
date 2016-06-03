@@ -5,10 +5,10 @@ var path = require('path');
 var pc = require('./ParticleController.js');
 
 var app = express();
-app.use(express.static(path.resolve('../client')));
+app.use(express.static(path.resolve(__dirname + '/../client')));
 
 app.get('/', function (req, res) {
-    res.sendFile(path.resolve('../client/index.html'));
+    res.sendFile(path.resolve(__dirname + '/../client/index.html'));
 });
 
 pc.particleSetup();

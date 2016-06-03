@@ -1,13 +1,33 @@
-/* This class is to be used for interacting with Particle API */
+/* This script is to be used for interacting with the Particle API */
 
 var fs = require('fs');
+var path = require('path');
 var Particle = require('particle-api-js');
 
 var particle = new Particle();
 var cfgFile = __dirname + '/particle-login.json';
 
+var moistureFile = path.resolve(__dirname + '/../client/moisture.json');
+var chargeFile = path.resolve(__dirname + '/../client/charge.json');
+
+function removeFile(file) {
+    fs.access(file, (err) => {
+	if (!err) { fs.unlink(file); }
+    });
+}
+
+function writeFile(file, data) {
+    fs.appendFile(file,
+		  JSON.stringify(data) + '\n',
+		  (err) => { if (err) console.log(err); });
+}
+
 module.exports = {
     particleSetup: function() {
+
+	// Clear any existing data files
+	removeFile(moistureFile);
+	removeFile(chargeFile);
 
 	var cfg = JSON.parse(fs.readFileSync(cfgFile, 'utf8'));
 
@@ -24,15 +44,21 @@ module.exports = {
 		    stream.on('moisture', function(data) {
 			var moisture = data.data;
 			var timestamp = data.published_at;
-			console.log('Moisture event: ' + data.data + ' @ ' + data.published_at);
-			// TODO - write the data to file
+			console.log('Moisture event: ' + moisture + ' @ ' + timestamp);
+			writeFile(moistureFile, data);
+			/*
+			fs.appendFile(moistureFile,
+				      JSON.stringify(data) + '\n',
+				      (err) => { if (err) console.log(err); });*/
 		    });
 
 		    stream.on('charge', function(data) {
 			var charge = data.data;
 			var timestamp = data.published_at;
 			console.log('Charge event: ' + data.data + ' @ ' + data.published_at);
-			// TODO - write the data to file
+			fs.appendFile(chargeFile,
+				      JSON.stringify(data) + '\n',
+				      (err) => { if (err) console.log(err); });
 		    });
 		},
 		function(err) {
