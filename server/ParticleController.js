@@ -16,10 +16,16 @@ function removeFile(file) {
     });
 }
 
-function writeFile(file, data) {
-    fs.appendFile(file,
-		  JSON.stringify(data) + '\n',
-		  (err) => { if (err) console.log(err); });
+function writeFile(file, data, append = true) {
+    if (append) {
+	fs.appendFile(file,
+		      JSON.stringify(data) + '\n',
+		      (err) => { if (err) console.log(err); });
+    } else {
+	fs.writeFile(file,
+		     JSON.stringify(data) + '\n',
+		     (err) => { if (err) console.log(err); });
+    }
 }
 
 module.exports = {
@@ -52,7 +58,7 @@ module.exports = {
 			var charge = data.data;
 			var timestamp = data.published_at;
 			console.log('Charge event: ' + data.data + ' @ ' + data.published_at);
-			writeFile(chargeFile, data);
+			writeFile(chargeFile, data, false);
 		    });
 		},
 		function(err) {
