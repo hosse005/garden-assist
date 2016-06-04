@@ -223,5 +223,20 @@ $(function() {
         resize: true
     });
 
+    // Test chart
+    Morris.Area({
+	element: 'testchart',
+	data: [
+	    { time: '2006', moisture: 1500 },
+	    { time: '2007', moisture: 1470 },
+	    { time: '2008', moisture: 1470 },
+	    { time: '2009', moisture: 1460 },
+	    { time: '2010', moisture: 1450 },
+	    { time: '2011', moisture: 1440 },
+	    { time: '2012', moisture: 1550 }],
+	xkey: 'time',
+	ykeys: ['moisture'],
+	labels: ['Moisture']
+    });	    
 
 });
