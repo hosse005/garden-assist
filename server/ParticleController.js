@@ -16,7 +16,7 @@ function removeFile(file) {
     });
 }
 
-function writeFile(file, data, append = true) {
+function writeFile(file, data, append = false) {
     if (append) {
 	fs.appendFile(file,
 		      JSON.stringify(data) + '\n',
@@ -26,6 +26,19 @@ function writeFile(file, data, append = true) {
 		     JSON.stringify(data) + '\n',
 		     (err) => { if (err) console.log(err); });
     }
+}
+
+function addMoistureData(file, entry) {
+    fs.readFile(file, (err, data) => {
+	var moistureJSON = { "data": [] };
+
+	// Only try parse file if open didn't fail
+	if (!err)
+	    moistureJSON = JSON.parse(data);
+
+	moistureJSON.data.push(entry);
+	writeFile(file, moistureJSON);
+    });
 }
 
 module.exports = {
@@ -51,14 +64,15 @@ module.exports = {
 			var moisture = data.data;
 			var timestamp = data.published_at;
 			console.log('Moisture event: ' + moisture + ' @ ' + timestamp);
-			writeFile(moistureFile, data);
+			var dataJSON = { "moisture": moisture, "timestamp": timestamp };
+			addMoistureData(moistureFile, dataJSON);
 		    });
 
 		    stream.on('charge', function(data) {
 			var charge = data.data;
 			var timestamp = data.published_at;
 			console.log('Charge event: ' + data.data + ' @ ' + data.published_at);
-			writeFile(chargeFile, data, false);
+			writeFile(chargeFile, data);
 		    });
 		},
 		function(err) {
