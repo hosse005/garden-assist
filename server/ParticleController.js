@@ -33,8 +33,13 @@ function addMoistureData(file, entry) {
 	var moistureJSON = { "data": [] };
 
 	// Only try parse file if open didn't fail
-	if (!err)
+	if (!err) {
 	    moistureJSON = JSON.parse(data);
+
+	    // Check to see if we need to remove some old records
+	    if (moistureJSON.data.length >= 600)
+		moistureJSON.data = moistureJSON.data.slice(100,moistureJSON.data.length);
+	}
 
 	moistureJSON.data.push(entry);
 	writeFile(file, moistureJSON);
