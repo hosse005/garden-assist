@@ -56,7 +56,7 @@ module.exports = {
 	var cfg = JSON.parse(fs.readFileSync(cfgFile, 'utf8'));
 
 	// Attempt login with given username and pw
-	particle.login({username: cfg.username, password: cfg.password}).then(function (data) {
+	particle.login({username: cfg.username, password: cfg.password}).then(function(data) {
 	    // Extract the access token
 	    var token = data.body.access_token;
 	    particle.listDevices({auth: token}).then(function(devices) {
