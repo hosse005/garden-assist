@@ -16,16 +16,10 @@ function removeFile(file) {
     });
 }
 
-function writeFile(file, data, append = false) {
-    if (append) {
-	fs.appendFile(file,
-		      JSON.stringify(data) + '\n',
-		      (err) => { if (err) console.log(err); });
-    } else {
-	fs.writeFile(file,
-		     JSON.stringify(data) + '\n',
-		     (err) => { if (err) console.log(err); });
-    }
+function writeFile(file, data) {
+    fs.writeFile(file,
+		 JSON.stringify(data) + '\n',
+		 (err) => { if (err) console.log(err); });
 }
 
 function addMoistureData(file, entry) {
