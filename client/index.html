@@ -100,7 +100,7 @@
                                         <i class="fa fa-sun-o fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">20&degC</div>
+                                        <div class="huge" id="temp">&#45&#45&degC</div>
                                         <div>Current Temperature</div>
                                     </div>
                                 </div>
@@ -141,8 +141,15 @@
     <script src="js/plugins/morris/raphael.min.js"></script>
     <script src="js/plugins/morris/morris.min.js"></script>
 
+    <!-- SimpleWeater plugin -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js"></script>
+    
     <!-- Data extraction script -->
     <script src="js/extractData.js"></script>
+
+    <!-- Weather loading script -->
+    <script src="js/getWeather.js"></script>
+    
 </body>
 
 </html>
